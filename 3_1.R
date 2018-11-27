@@ -1,0 +1,7 @@
+df <- read.csv('https://stepic.org/media/attachments/lesson/11478/data.csv')
+library(ROCR)
+fit  <- glm(admit ~ gre + gpa + rank, df, family = "binomial")
+summary(fit)
+df$pr <- predict(object = fit, type = "response", newdata = df)
+prr <- ifelse(df$pr[is.na(df$admit)] > 0.4 , 1, 0)
+sum(prr)
